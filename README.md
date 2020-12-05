@@ -1,4 +1,4 @@
-# IIDXMusicGatchFront
+# IIDXMusicGachaFront
 
 ## Build Setup
 
