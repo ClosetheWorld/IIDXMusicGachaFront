@@ -48,50 +48,28 @@
       </v-row>
     </v-container>
     <v-divider />
-    // ゴミ
     <v-container>
-      <v-row dense class="result">
-        <v-col md="12" class="ml-md-auto">
-          <v-card class="pa-2">
-            <v-card-title> 3y3s </v-card-title>
-            <v-card-subtitle> 青龍 </v-card-subtitle>
-            <v-card-text>
-              <div>ジャンル: DANCE SPEED</div>
-              <div>BPM: 191</div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row dense class="result">
-        <v-col md="12" class="ml-md-auto">
-          <v-card class="pa-2">
-            <v-card-title> Plan 8 </v-card-title>
-            <v-card-subtitle> Ryu☆ </v-card-subtitle>
-            <v-card-text>
-              <div>ジャンル: HAPPY GABBA</div>
-              <div>BPM: 212</div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row dense class="result">
-        <v-col md="12" class="ml-md-auto">
-          <v-card class="pa-2">
-            <v-card-title> Go Beyond!! </v-card-title>
-            <v-card-subtitle> Ryu☆ Vs. Sota </v-card-subtitle>
-            <v-card-text>
-              <div>ジャンル: TRANCE CORE</div>
-              <div>BPM: 200</div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+      <transition-group name="slide-y-transition">
+        <MusicCard
+          v-for="item in gachaResult"
+          v-bind:key="item.title"
+          v-bind:title="item.title"
+          v-bind:artist="item.artist"
+          v-bind:bpm="item.bpm"
+          v-bind:genre="item.genre"
+        />
+      </transition-group>
     </v-container>
   </v-app>
 </template>
 
 <script>
+import MusicCard from '~/components/MusicCard'
+
 export default {
+  components: {
+    MusicCard,
+  },
   data() {
     return {
       drawerOpened: false,
@@ -115,15 +93,28 @@ export default {
         'https://twitter.com/intent/tweet?text=IIDXほし12ガチャ&url=https://closetheworld.me/gacha'
     },
     getSongGacha() {
-      // APIをキックする
+      // API叩く
+      this.gachaResult = [
+        {
+          title: '3y3s',
+          artist: '青龍',
+          bpm: 191,
+          genre: 'DANCE SPEED',
+        },
+        {
+          title: 'Plan 8',
+          artist: 'Ryu☆',
+          bpm: 212,
+          genre: 'HAPPY GABBA',
+        },
+      ]
     },
   },
 }
 </script>
 
 <style>
-.title {
-  display: flex;
-  text-align: center;
+.v-anim-enter-active {
+  opacity: 0.5s;
 }
 </style>
