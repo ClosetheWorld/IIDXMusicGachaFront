@@ -35,10 +35,10 @@
         <v-col cols="12">
           <v-card class="headline">
             <v-card-title>
-              <h1 class="title">IIDXほし12ガチャ</h1>
+              <h1 class="title">ほし12ガチャ</h1>
             </v-card-title>
             <v-card-subtitle>
-              ランダムなほし12の曲が出てきます
+              SPのほし12の曲がランダムで出てきます
             </v-card-subtitle>
             <v-card-actions @click="getSongGacha()">
               <v-btn text> まわす </v-btn>
@@ -65,7 +65,6 @@
 
 <script>
 import MusicCard from '~/components/MusicCard'
-import Gacha from '~/plugins/song'
 
 export default {
   components: {
@@ -93,12 +92,17 @@ export default {
       window.location =
         'https://twitter.com/intent/tweet?text=IIDXほし12ガチャ&url=https://closetheworld.me/gacha'
     },
-    getSongGacha() {
-      // API叩く
+    async getSongGacha() {
+      this.gachaResult = []
       const count = 3
-      Gacha.getSongs(count).then((response) => {
-        this.gachaResult = response
-      })
+      const endpoint = process.env.API_BASE_URL
+      await this.$axios
+        .$get(endpoint, {
+          params: {
+            count,
+          },
+        })
+        .then((res) => (this.gachaResult = res))
     },
   },
 }
