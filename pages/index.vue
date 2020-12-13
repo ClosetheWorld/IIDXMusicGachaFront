@@ -52,11 +52,11 @@
       <transition-group name="slide-y-transition">
         <MusicCard
           v-for="item in gachaResult"
-          v-bind:key="item.title"
-          v-bind:title="item.title"
-          v-bind:artist="item.artist"
-          v-bind:bpm="item.bpm"
-          v-bind:genre="item.genre"
+          :key="item.title"
+          :title="item.title"
+          :artist="item.artist"
+          :bpm="item.bpm"
+          :genre="item.genre"
         />
       </transition-group>
     </v-container>
@@ -65,6 +65,7 @@
 
 <script>
 import MusicCard from '~/components/MusicCard'
+import Gacha from '~/plugins/song'
 
 export default {
   components: {
@@ -94,20 +95,10 @@ export default {
     },
     getSongGacha() {
       // API叩く
-      this.gachaResult = [
-        {
-          title: '3y3s',
-          artist: '青龍',
-          bpm: 191,
-          genre: 'DANCE SPEED',
-        },
-        {
-          title: 'Plan 8',
-          artist: 'Ryu☆',
-          bpm: 212,
-          genre: 'HAPPY GABBA',
-        },
-      ]
+      const count = 3
+      Gacha.getSongs(count).then((response) => {
+        this.gachaResult = response
+      })
     },
   },
 }
